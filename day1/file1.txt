@@ -1,0 +1,169 @@
+================================ Redis =============================== 
+
+Redis (Remote Dictionary Server) is a fast, open source, in-memory, key-value data store. 
+It is used as a database, cache, and message broker. 
+Along with supporting mapped key-value-based strings to store and retrieve data, 
+it also supports data structures such as strings, hashes, lists, sets, etc.
+
+Download Link for Windows :- 
+https://github.com/microsoftarchive/redis/releases/download/win-3.0.504/Redis-x64-3.0.504.zip
+
+To Start the redis local host - 
+redis-cli 
+
+================================ Basic Redis Commands ============================ 
+
+/****IT WILL SET VALUE****/
+127.0.0.1:6379> SET name praveen
+OK
+127.0.0.1:6379> SET id a0326
+OK
+127.0.0.1:6379> SET age 19
+OK
+
+/****IT WILL RETURN VALUE****/
+127.0.0.1:6379> GET name
+"praveen"
+
+/****IT WILL RETURN ALL THE KEYS****/
+127.0.0.1:6379> KEYS *
+1) "id"
+2) "name"
+
+/****IT WILL CHECK IF KEY EXISTS****/
+127.0.0.1:6379> EXISTS id
+(integer) 1
+127.0.0.1:6379> EXISTS age
+(integer) 0
+
+/****IT WILL DELETE THE KEYS****/
+127.0.0.1:6379> DEL age
+(integer) 1
+
+/****IT WILL RETURN THE LIFE OF KEY****/
+127.0.0.1:6379> ttl name
+(integer) -1
+
+/****IT WILL SET THE EXPIRY TIME OF KEY****/
+127.0.0.1:6379> expire name 10
+(integer) 1
+127.0.0.1:6379> ttl name
+(integer) 8
+127.0.0.1:6379> ttl name
+(integer) 7
+127.0.0.1:6379> ttl name
+(integer) 6
+127.0.0.1:6379> ttl name
+(integer) 5
+127.0.0.1:6379> ttl name
+(integer) 4
+127.0.0.1:6379> ttl name
+(integer) 4
+127.0.0.1:6379> ttl name
+(integer) 2
+127.0.0.1:6379> ttl name
+(integer) 1
+127.0.0.1:6379> ttl name
+(integer) -2
+
+/****IT WILL SET THE KEY AND EXPIRY TIME OF KEY****/
+127.0.0.1:6379> setex name 10 praveen
+OK
+127.0.0.1:6379> ttl name
+(integer) 9
+127.0.0.1:6379> ttl name
+(integer) 7
+127.0.0.1:6379> ttl name
+(integer) 6
+127.0.0.1:6379> ttl name
+(integer) 5
+127.0.0.1:6379> ttl name
+(integer) 3
+127.0.0.1:6379> ttl name
+(integer) 2
+127.0.0.1:6379> ttl name
+(integer) 0
+127.0.0.1:6379> ttl name
+(integer) -2
+
+/****IT WILL DELETE ALL KEYS****/
+127.0.0.1:6379> FLUSHALL
+OK
+
+
+===== ARRAYS IN REDIS =====
+
+/****IT WILL ADD VALUE AT 0 INDEX OF AN ARRAY ****/
+127.0.0.1:6379> lpush friends tim
+(integer) 1
+
+/****IT WILL ADD VALUE AT LAST INDEX OF AN ARRAY ****/
+127.0.0.1:6379> rpush friends tom
+(integer) 2
+
+127.0.0.1:6379> lpush friends john
+(integer) 3
+
+/****IT WILL RETURN ALL VALUES OF AN ARRAY ****/
+127.0.0.1:6379> LRANGE friends 0 -1
+1) "john"
+2) "tim"
+3) "tom"
+
+
+/****IT WILL POP LAST VALUE OF AN ARRAY ****/
+127.0.0.1:6379> lpop friends
+"john"
+
+127.0.0.1:6379> LRANGE friends 0 -1
+1) "tim"
+2) "tom"
+
+
+===== SET =====
+
+/****IT WILL ADD VALUE IN SET ****/
+127.0.0.1:6379> SADD hobbies "sketching"
+(integer) 1
+127.0.0.1:6379> SADD hobbies "singing"
+(integer) 1
+127.0.0.1:6379> SADD hobbies "sketching"
+(integer) 0
+
+
+/**** IT WILL RETURN ALL VALUES OF SET ****/
+127.0.0.1:6379> SMEMBERS hobbies
+1) "singing"
+2) "sketching"
+
+
+===== HASHES (OBJECTS) =====
+
+/**** IT WILL ADD OBJECT IN HASHES****/
+127.0.0.1:6379> HSET person name praveen
+(integer) 1
+127.0.0.1:6379> HSET person age 19
+(integer) 1
+
+/**** IT WILL RETURN PARTICULAR VALUE OF AN OBJECT ****/
+127.0.0.1:6379> HGET person name
+"praveen"
+
+/**** IT WILL RETURN ALL VALUES OF HASHES ****/
+127.0.0.1:6379> HGETALL person
+1) "name"
+2) "praveen"
+3) "age"
+4) "19"
+
+/**** IT WILL DELETE PARTICULAR VALUE OF AN OBJECT ****/
+127.0.0.1:6379> HDEL person age
+(integer) 1
+
+127.0.0.1:6379> HGETALL person
+1) "name"
+2) "praveen"
+
+/**** IT WILL CHECK PARTICULAR IN HASH ****/
+127.0.0.1:6379> HEXISTS person name
+(integer) 1
